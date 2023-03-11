@@ -1,0 +1,39 @@
+
+<!--Info Messages-->
+<!--Create Order Section-->
+<div class="title">Create Order</div>
+<div class="d-flex justify-content-between">
+  <div class="p-2 w-50 bd-highlight">Order no: {{ new_order_id }}</div>
+  <div class="p-2 flex-shrink-1 bd-highlight">Date: {{ new_order_date }}</div>
+</div>
+<div class="container-fluid position-relative">
+  <div class="py-3">
+    TableNumber:
+    <input
+      type="number"
+      class="items-quanitity"
+      min="1"
+      value="{{order.table_number}}"
+      name="table-number"
+      hx-post="{% url 'billing:update_table_number' new_order_id %}"
+    />
+  </div>
+  <form class="d-flex">
+    <input
+      class="form-control me-2"
+      id="search-bar004"
+      type="search"
+      placeholder="Search Items"
+      aria-label="Search"
+      hx-post="{% url 'billing:search_items' %}"
+      hx-target="#search-results"
+      hx-trigger="focus, keyup changed"
+      name="item-name"
+    />
+  </form>
+  <!-- Drop down List Section -->
+  <div class="list-menu position-absolute end-0" id="search-bar004-target">
+    {% include 'partials/search-results.html' %}
+  </div>
+</div>
+<!--Add items section-->

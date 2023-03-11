@@ -1,0 +1,129 @@
+  
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #fff;
+}
+
+/* heroSection */
+.heroSec{
+ height: 305px;
+ /* border: solid #fff 1px; */
+ background-color: #202428;
+ display: flex;
+ justify-content: center;
+}
+.headContainer{
+    /* border: solid #fff 1px; */
+    margin: auto;
+    display: flex;
+    justify-content: center;
+
+
+}
+#logo{
+    color: #fff;
+
+ 
+}
+/* /heroSection */
+
+/* loginSection */
+
+.logInSec{
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    padding-bottom: 100px;
+}
+
+.box{
+    position: absolute;
+    width: 500px;
+    height: 280px;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    border: solid black 1px hidden;
+    background-color: #e8b738;
+    border-radius: 20px;
+    box-shadow: 0 0 10px black;
+    position: absolute;
+
+}
+ /* box top text */
+h2{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight:700;
+    font-size: 25px; 
+    display: flex;
+    justify-content:center;
+    color: #393744;
+}
+/* /box top text */
+ 
+/* details */
+.container{
+    position:absolute;
+    padding: 20px;
+    justify-content:center;
+    /* border: solid black 1px; */
+    margin-top: 50px;        
+}
+/* details */
+
+#avatar{
+    width: 30px;
+    height: auto;
+}
+
+#lock{
+    width: 30px;
+    height: auto;
+}
+
+#username{    
+    padding-left: 90px;
+    padding-top: 10px;
+    padding-bottom:10px;
+    margin-left: 15px;
+    margin-bottom: 40px;
+    border-radius: 5px;
+    margin-bottom: 40px;
+    border-style: none;    
+}
+
+#password{
+    padding-left: 90px;
+    padding-top: 10px;
+    padding-bottom:10px;
+    margin-left: 250px;
+    border-radius: 5px;
+    margin-bottom: 40px;
+    border-style: none;
+
+}
+/* /details */
+
+/*button*/
+.submit{
+    display: flex;
+    justify-content:center;
+}
+#login{
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    border-style: none;
+    background-color: #202428;
+    color: white;
+}
+
+#login:active{
+     box-shadow: 0 0 10px;
+}
+/* /button */
+

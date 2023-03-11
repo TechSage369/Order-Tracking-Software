@@ -11,7 +11,3 @@ class UpdateItem(forms.ModelForm):
     class Meta:
         model = Order
         fields = ['order_status']
-
-
-
-

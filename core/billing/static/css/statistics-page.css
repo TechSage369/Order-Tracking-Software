@@ -1,0 +1,139 @@
+*{
+    margin:0;
+    padding:0;
+}
+:root{
+    --primary:#1a1330;
+    --secondary:#000;
+    --colour1:#469e9e;
+    --colour2:#fff;
+
+}
+body{
+    background-color:var(--primary);
+}
+
+.navbar{
+    background-color:var(--secondary);
+    width: 100%;
+    height:50px;
+}
+
+.content{
+    display: flex;
+    flex-flow:column;
+    padding: 20px;
+}
+
+.heading{
+    margin: 0px 20px;
+    padding-bottom: 50px;
+    font-size:4rem;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 400;
+    color:var(--colour2);
+}
+
+.cards{
+    display: flex;
+    flex-direction: row;
+}
+
+.sales{
+    /* border: solid black 1px; */
+    margin-top:10px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    padding: px 1px;
+    width: 150px;
+    height: 100px;
+    border-radius:10px;
+    background-color:var(--colour1);
+    box-shadow: 0 0 5px var(--secondary);
+
+}
+
+.dailySales{
+    margin-top:10px;
+    margin-left: 10px;
+    font-family: sans-serif;
+    color: var();
+    
+}
+.weeklySales{
+    margin-top:10px;
+    margin-left: 10px;
+    font-family: sans-serif;
+}
+.monthlySales{
+    margin-top:10px;
+    margin-left: 10px;
+    font-family: sans-serif;
+}
+.yearlySales{
+    margin-top:10px;
+    margin-left: 10px;
+    font-family: sans-serif;
+}
+h1{
+    padding: 10px;
+    font-family: sans-serif;
+    font-size:18px;
+}
+.charts{
+    margin-top: 30px;
+    /* padding: 20px; */
+    /* display: block; */
+    /* border: 1px solid black; */
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(2,1fr);
+    /* position: relative; */
+    gap: 20px;
+    /* height: 800px; */
+}
+
+.box{
+    background-color:#251c35;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-self: center;
+    height:400px;
+    overflow: hidden;
+    width: 40rem;
+    padding: 60px 10px;
+    box-shadow: 0 0 16px rgba(0, 0,0,0.8) ;
+    border: 1px solid var(--colour1);
+    border-radius:2rem;
+}
+.title{
+    position:relative;
+    top:-30px;
+    color:var(--colour2);
+    font-size: 2rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 300;  
+   
+}
+.lable{
+    display: flex;
+    justify-content: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: var(--colour2);
+    font-size:1rem;
+    font-weight: 200;
+    margin-top:5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+

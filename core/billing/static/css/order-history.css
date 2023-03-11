@@ -1,0 +1,195 @@
+*{
+   margin:0;
+   padding:0;
+}
+
+:root{
+    --primary:#1a1330;
+    --secondary:#d9d9d9;
+    --colour1:#fff;
+    --colour2:#000;  
+    --colour3:#1e1e1e;
+    --colour4:#333c46;
+    --colour5:#212121;
+
+}
+body{
+    background: var(--primary);
+    scroll-behavior: smooth;
+}
+.navBar{
+    width: 100%;
+    height:50px;
+    background:var(--colour2)
+}
+.container{
+    /* border: solid black 1px; */
+    display:flex;
+    justify-content:space-between;
+    flex-direction:row;
+    min-height: 60px;
+    overflow: hidden;
+    padding: 10px 100px;
+    
+    
+}
+.heading{
+    font-size: 2.5rem;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 350;
+    color: #fff;
+    text-shadow: 0 0 10px var(--colour2);
+}
+.search{
+    display: flex;
+    justify-content: center;
+}
+.bar > input{
+    display: flex;
+    justify-content:center;
+    background: var(--colour1);
+    margin-top:10px;
+    box-sizing: border-box;
+    height:35px;
+    border-radius: 5px;
+    font-size:20px;
+    padding-left:150px;
+    border: 3px solid var(--colour1);
+    -webkit-transition: 0.5s;
+    transition: 0.3s;
+    outline: none;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    box-shadow: 0 0 7px var(--colour2);
+  }
+input[type=text]:focus {
+    border: 3px solid var(--colour2);
+  }
+
+.option{
+    display: flex;
+    justify-content: space-between;
+}
+.title{
+    color:var(--colour1);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size:1.2em; 
+}
+label{
+    margin:0px 10px;
+}
+.select{
+    display: flex;
+    justify-content: flex-start;
+    font-size: 20px;
+    color:var(--colour1);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.tableContainer {
+    margin:50px 70px;
+    padding: 20px;
+    min-height: 100px;
+    /* overflow:hidden; */
+    /* border: solid black 1px; */
+    background-color: var(--secondary);
+    border-radius: 10px;
+    box-shadow: 0 0 10px var(--colour2);
+    
+
+}
+.tableHead{
+    display: flex;
+    justify-content:center;
+    height:30px;
+    background: var(--colour2);
+    border-radius: 10px;
+    box-shadow: 0 0 5px var(--colour2);
+}
+
+.tableTitle{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap:wrap;
+    color: var(--colour1);
+    margin: 0px 30px;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    /* padding: 55px; */
+}
+.data {
+    margin: 10px 10px;
+    padding: 10px 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    /* border: solid black 1px; */
+   
+
+}
+.dataSet{
+    display: flex;
+    padding: 10px;
+    justify-content:center;
+    height:30px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    box-shadow: 0 0 5px var(--colour2);
+}
+
+
+.dataList{
+    /* display: flex; */
+    justify-content:center;
+    flex-direction: row;
+    /* flex-wrap: nowrap; */
+    color: var(--colour1);
+    margin:0px 50px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size:18px;
+
+}
+
+.dataSet:nth-child(odd){
+    background-color: var(--colour4);
+    
+}
+.dataSet:nth-child(even){
+    background-color: var(--colour5); 
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+}
+button{
+    border-style: none;
+    padding: 10px 20px;
+    background-color: var(--colour3);
+    border-radius: 5px;
+    margin: 5px;
+    color: var(--secondary);
+}
+button:active{
+    box-shadow: 0 0 3px var(--colour2);
+    padding:10px 15px;
+}
+button:hover{
+    background-color: var(--primary);
+}
+
+
+
+
+
+
+
+    
+    
+
+
+
+
+
+
+

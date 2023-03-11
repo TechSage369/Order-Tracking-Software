@@ -1,0 +1,206 @@
+*{
+    margin:0;
+    padding: 0;
+}
+
+:root{
+    --primary:#1a1330;
+    --secondary:#d9d9d9;
+    --colour1:#fff;
+    --colour2:#000;  
+    --colour3:#ffc107;
+    --colour4:#688a84;
+    --colour5:#212121;
+
+}
+.navBar{
+    width: 100%;
+    height: 50px;
+    background-color: var(--colour2);
+}
+
+body{
+    background-color:var(--primary);
+}
+.heading{
+    color: var(--colour1);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 3rem;;
+    font-weight: 400;
+    margin: 30px;
+    text-shadow: 0 0 10px var(--colour2);
+}
+
+.container{
+    border: solid #fff 1px;
+    margin: 30px;
+    min-height: 500px;
+    border-radius:20px;
+    padding: 20px 30px;
+    overflow: hidden;
+    background-color: var(--secondary);
+}
+.box{
+    /* border: 1px solid black; */
+    background: var(--colour4);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px var(--colour2);
+    margin-bottom:30px;
+    min-height: 100px;
+    overflow: hidden;
+
+}
+.title{
+
+    /* border: solid black 1px; */
+    margin:0px 20px;
+    padding: 0px 10px;
+}
+.boxTitle{
+    color: var(--colour5);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size:2rem;
+}
+.fields{
+    margin: 20px 0px;
+    display: flex;
+    /* border: solid 1px #fff; */
+}
+
+.input{
+    display: flex;
+    flex-direction: column;
+    width:calc(100% / 2 - 100px);
+    margin-left: 40px; 
+    flex-wrap: wrap;
+}
+
+.input > label{
+    font-size:1.2rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 200;
+}
+
+.input > input{
+    padding: 10px 10px;
+    margin-top:3px;
+    border-radius: 5px;
+    border-style:none;
+    border:hidden;
+    font-size: medium;
+    box-shadow: 0 0 5px var(--colour2);
+}
+.btn{
+  margin: 20px 40px;
+  padding:10px
+}
+ button {
+   padding: 8px 15px;
+   font-family: sans-serif;
+   font-weight:bolder;
+   background-color:var(--colour5);
+   border-style: none;
+   border-radius: 5px;
+   color: var(--colour1);
+
+}
+button:active{
+    box-shadow: 0 0 10px var(--colour2);
+    
+    
+}
+button:hover{
+   
+    background-color: var(--colour3);
+    color: var(--colour2);
+    transition: 0.2s;
+}
+.titleCnt{
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    /* border: solid 1px black; */
+}
+
+.search{
+    margin:10px 20px;
+    padding:0px 10px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: medium;
+}
+.search > input{
+     border-radius: 5px;  
+     width:300px;
+    padding:8px 30px;
+    border-style: none;
+    margin: 5px;
+}
+
+.table{
+    /* border: solid white 1px; */
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 35px;
+    width: calc(100% / 4 -100px);
+    /* margin: 0px 50px; */
+    background-color: var(--colour5);
+    border-radius: 5px;
+    box-shadow: 0 0 3px var(--colour2);
+    margin-bottom: 10px;
+}
+.table > .tableData {
+    display: flex;
+    justify-content: center;
+    color: var(--colour1);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+}
+
+.tableItems{
+    display:flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding:5px 33px;
+    box-shadow: 0 0 5px var(--colour2);
+    /* border: 3px solid var(--colour2); */
+    border-radius: 5px;
+    
+}
+.tableData {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight:500;
+    color: var(--colour2);
+    /* border: 1px solid black; */
+    margin-right: 20px;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+   width: calc(100% / 4 );
+   min-height: 5px;
+   overflow: hidden;
+
+   
+    
+    
+}
+
+.tableItems > .tableData >button{
+    padding:5px 5px;
+    min-height: 5px;
+    overflow: hidden;
+    font-weight: bolder;
+    border-style: none;
+    transition: 0.3s;
+}
+.tableItems:nth-child(odd){
+    background-color:  var(--colour1);
+
+}
+.tableItems:nth-child(even){
+    background-color:#817777;
+    color: var(--colour1);
+
+}
+
+

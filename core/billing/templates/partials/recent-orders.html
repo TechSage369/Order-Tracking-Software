@@ -1,0 +1,41 @@
+<div>Recent Orders</div>
+{% comment %} Searchbar {% endcomment %}
+<input type="search" name="" id="">
+<div class="recent-orders">
+  {% if orders %}
+    {% for order in orders %}
+      <div class="card">
+        <table>
+          <tr>
+            <th>Order</th>
+            <th>Table</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Function</th>
+          </tr>
+          <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.table_number }}</td>
+            <td>{{ order.get_total_price }}</td>
+            <td>Resolve</td>
+            <td>
+              <button type="button"
+                      class="btn btn-primary"
+                      data-bs-toggle="modal"
+                      data-bs-target="#myModal"
+                      hx-get="{% url 'billing:modal_view' order.id %}"
+                      hx-trigger="click"
+                      hx-target="#add-items-target"
+                      >View</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div>
+    {% endfor %}
+  {% else %}
+    <div class="recent-orders-empty">No recent Orders</div>
+  {% endif %}
+</ul>
+</div>
