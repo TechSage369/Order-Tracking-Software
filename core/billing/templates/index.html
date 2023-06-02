@@ -2,7 +2,6 @@
 {% load static %}
 {% load mathfilters %}
 {% block content %}
-  {% if message %}<div class="alert alert-info" id="hideDiv">{{ message }}</div>{% endif %}
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-7 create-order">
@@ -18,12 +17,11 @@
                style="background-color: #1d1d1d;
                       color: #fefefe">Update</a>
           {% else %}
-            <button type="submit"
-                    class="btn"
-                    id="create-button"
-                    style="background-color: #1d1d1d;
-                           color: #fefefe"
-                    onclick="createOrder()">Create</button>
+            <a href="{% url 'billing:create_order' %}?order_id={{ order.id }}"
+              type="submit"
+              class="btn"
+              id="create-button"
+              style="background-color: #1d1d1d; color: #fefefe">Create</a>
           {% endif %}
         </div>
       </div>
@@ -31,22 +29,5 @@
     </div>
   </div>
   <script src="{% static 'js/functions.js' %}"></script>
-  <script>
-    function createOrder() {
-      var orderId = {{order.id|safe}};
-      var obj = {
-        type: 'POST',
-        url: {% url 'billing:create_order' %},
-        data: {
-          'order_id': orderId,
-        },
-        success: function(result){
-          location.reload();
-        }
-      };
-      $.ajax(obj);
-
-    }
-  </script>
   {% include "partials/footer.html" %}
 {% endblock content %}

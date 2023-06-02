@@ -22,6 +22,8 @@ idna = "*"
 pillow = "*"
 ipython = "*"
 django-extensions = "*"
+flake8 = "*"
+pylint = "*"
 
 [dev-packages]
 autopep8 = "*"
