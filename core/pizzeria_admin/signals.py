@@ -1,50 +1,80 @@
 from django.db.models.signals import post_save, post_delete
+from django.db.models import Q
 from django.dispatch import receiver
 from billing.models import Order
 from .models import DailySale, MonthlySale, YearlySale
 from datetime import date
+from . import utils
 
 
 @receiver(post_save, sender=Order)
 @receiver(post_delete, sender=Order)
 def calculate_total(sender, instance, **kwargs):
-    print(
-        f"_____________________Called Calculate Total Techsage: {instance.ordered_on.month}")
-    print(f"Ordered On: {instance.ordered_on.date()}")
-    daily_sells(instance.ordered_on.date())
+    print(f"_____Calculating Daily Sales____________{instance.ordered_on}")
+    daily_sales(instance.ordered_on.date())
 
 
-def daily_sells(date):
+def daily_sales(date):
     orders = Order.objects.filter(ordered_on__date=date)
-    day = DailySale.objects.get_or_create(date=date)
-    if not day:
+    try:
+        obj = DailySale.objects.get(date=date)
+        obj.total_sales = sum(order.total_price for order in orders)
+        obj.save()
+        monthly_sales(date)
+
+    except Exception as e:
+        print(f"Warning: {e}")
         create_day(date)
-    obj = DailySale.objects.get(date=date)
-    total = sum(order.total_price for order in orders)
-    obj.total_sales = total
-    obj.save()
+        daily_sales(date)
+
+
+def monthly_sales(date):
+    sales = DailySale.objects.filter(
+        Q(date__month=date.month) & Q(date__year=date.year))
+    try:
+        obj = MonthlySale.objects.get(month_year=utils.month_year(date))
+        obj.total_sales = sum(sale.total_sales for sale in sales)
+        obj.save()
+        yearly_sales(date.year)
+    except Exception as e:
+        print(f"Warning: monthly_sales {e}")
+        create_month(date)
+        monthly_sales()
+
+
+def yearly_sales(year):
+    sales = MonthlySale.objects.filter(month_year__year=year)
+    try:
+        obj = YearlySale.objects.get(year=year)
+        obj.total_sales = sum(sale.total_sales for sale in sales)
+        obj.save()
+    except Exception as e:
+        print(f"_____________________________-Warning: Yearly_sales {e}")
+        create_year(year)
+        yearly_sales(year)
 
 
 def create_day(date, *args, **kwargs):
     month = date.month
-    year = date.year
-    check_month = MonthlySale.objects.filter(month=month, year=year).exists()
-    if not check_month:
-        create_month(month, year)
-
-    obj, created = DailySale.objects.get_or_create(date=date, month=month)
-    if not created:
+    try:
+        month = MonthlySale.objects.get(month_year=utils.month_year(date))
+        obj = DailySale(date=date, month=month)
         obj.save()
+    except:
+        create_month(date)
+        create_day(date)
 
 
-def create_month(month, year, **kwargs):
-    check_year = YearlySale.objects.filter(year=year).exists()
-    if not check_year:
-        create_year(year)
-    obj, created = MonthlySale.objects.get_or_create(month=month, year=year)
-    if not created:
+def create_month(date, **kwargs):
+    try:
+        year = YearlySale.objects.get(year=date.year)
+        obj = MonthlySale(month_year=date, year=year)
         obj.save()
+    except:
+        create_year(date.year)
+        create_month(date)
 
 
 def create_year(year, *args, **kwargs):
-    obj = YearlySale.objects.get_or_create(year=year)
+    obj = YearlySale(year=year)
+    obj.save()

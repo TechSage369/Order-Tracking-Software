@@ -155,8 +155,8 @@ def get_week_date_range():
     return start_date, current_date
 
 
-# It is specifically build for making date to always 1
+# It is specifically build for making days to always 1
 # to make custom field for MM/YYYY
-def month_year(month: int, year: int) -> datetime.date:
-    date = datetime.date(year, month, 1)
-    return date
+def month_year(date) -> datetime.date:
+    new_date = datetime.date(date.year, date.month, 1)
+    return new_date
