@@ -1,5 +1,6 @@
 import re
-
+import datetime
+from typing import Iterable, Optional
 from django.db import models
 
 
@@ -24,6 +25,10 @@ class Order(models.Model):
     items = models.ManyToManyField('Item', through="OrderItem")
     table_number = models.PositiveIntegerField(default=1)
     total_price = models.IntegerField(default=0)
+
+    def save(self, *args, **kwargs):
+        self.total_price = sum([order_item.get_price() for order_item in self.orderitem_set.all()]
+        super().save(*args, **kwargs)
 
     def get_id(self):
         """
