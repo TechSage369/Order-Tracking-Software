@@ -5,7 +5,6 @@ from billing.models import Order
 
 from .utils import (
     get_present_date,
-    get_present_day,
     get_present_year,
     get_present_month,
     generate_labels_for_month,

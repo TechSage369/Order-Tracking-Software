@@ -153,3 +153,10 @@ def get_week_date_range():
     week = current_date.weekday()
     start_date = current_date - datetime.timedelta(days=week)
     return start_date, current_date
+
+
+# It is specifically build for making date to always 1
+# to make custom field for MM/YYYY
+def month_year(month: int, year: int) -> datetime.date:
+    date = datetime.date(year, month, 1)
+    return date
