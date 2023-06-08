@@ -1,16 +1,16 @@
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_save, pre_delete
 from django.db.models import Q
 from django.dispatch import receiver
 from billing.models import Order
 from .models import DailySale, MonthlySale, YearlySale
-from datetime import date
+import datetime
 from . import utils
 
 
 @receiver(post_save, sender=Order)
-@receiver(post_delete, sender=Order)
+@receiver(pre_delete, sender=Order)
 def calculate_total(sender, instance, **kwargs):
-    print(f"_____Calculating Daily Sales____________{instance.ordered_on}")
+    # print(f"_____Calculating Daily Sales____________{instance.ordered_on}")
     daily_sales(instance.ordered_on.date())
 
 
@@ -23,7 +23,7 @@ def daily_sales(date):
         monthly_sales(date)
 
     except Exception as e:
-        print(f"Warning: {e}")
+        # print(f"Warning: {e}")
         create_day(date)
         daily_sales(date)
 
@@ -49,7 +49,7 @@ def yearly_sales(year):
         obj.total_sales = sum(sale.total_sales for sale in sales)
         obj.save()
     except Exception as e:
-        print(f"_____________________________-Warning: Yearly_sales {e}")
+        # print(f"_____________________________-Warning: Yearly_sales {e}")
         create_year(year)
         yearly_sales(year)
 
