@@ -1,7 +1,8 @@
 import logging
 from django.conf import settings
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from billing.models import Order
+from .models import DailySale, MonthlySale, YearlySale
 
 from .utils import (
     get_present_date,
@@ -11,6 +12,9 @@ from .utils import (
     get_total_sales_by_orders,
     make_new_year_range,
     get_week_date_range,
+    get_day_dict,
+    month_year,
+    generate_date_dictionary,
 
 )
 from time import perf_counter
@@ -54,30 +58,24 @@ logger = logging.getLogger(__name__)
 
 
 def get_daily_data(*args, **kwargs):
-    # Returns a tuple containing the labels and data
+    # Returns a list containing the labels and data
     # for the daily chart
     logger.info('Function Name: get_daily_data')
 
     start_time = perf_counter()  # start performance timer
-    month = get_present_month()
-    year = get_present_year()
 
-    if kwargs.get('test'):
-        month = kwargs.get('month')
-    logger.debug(f'Present Month: {month}')
+    date = get_present_date().date()
+    sales = DailySale.objects.filter(
+        Q(date__month=date.month) & Q(date__year=date.year))
 
-    orders = Order.objects.filter(
-        ordered_on__month=month,
-        ordered_on__year=year
-    ).values('ordered_on__day').annotate(total_sales=Sum('total_price'))
+    month_dict = get_day_dict(date.year, date.month)
 
-    label = list(generate_labels_for_month(month))
-    data = [0 for i in range(len(label))]
+    for sale in sales:
+        key = sale.date.day
+        month_dict[key] = sale.total_sales
 
-    for order in orders:
-        index = label.index(order.get('ordered_on__day'))
-        data[index] = order.get('total_sales')
-
+    label = list(month_dict.keys())
+    data = list(month_dict.values())
     if settings.DEBUG:
         logger.info(f'Execution Time: {perf_counter() - start_time}')
 
@@ -90,21 +88,19 @@ def get_weekly_data(*args, **kwargs):
     logger.info('Function Name: get_weekly_data')
 
     start_time = perf_counter()  # start performance timer
-    month = get_present_month()
-    year = get_present_year()
+    week_range = get_week_date_range(get_present_date().date())
+    w_dict = generate_date_dictionary(week_range[0], week_range[1])
 
-    logger.debug(f'Present Month: {month}')
-    orders = Order.objects.filter(
-        ordered_on__month=month,
-        ordered_on__year=year).values('ordered_on__week_day').annotate(total_sales=Sum('total_price'))
-    label = ['Sunday', 'Monday', 'Tuesday', 'Wednesday',
-             'Thursday', 'Friday', 'Saturday']
-    data = [0 for i in range(len(label))]
+    week_sales = DailySale.objects.filter(
+        Q(date__range=(week_range[0], week_range[1])))
 
-    for order in orders:
-        index = order.get('ordered_on__week_day') - 1
-        data[index] = order.get('total_sales')
+    label = ['Monday', 'Tuesday', 'Wednesday',
+             'Thursday', 'Friday', 'Saturday', 'Sunday',]
 
+    for sales in week_sales:
+        key = sales.date
+        w_dict[key] = sales.total_sales
+    data = list(w_dict.values())
     if settings.DEBUG:
         logger.info(f'Execution Time: {perf_counter() - start_time}')
 
@@ -118,19 +114,16 @@ def get_monthly_data():
 
     start_time = perf_counter()
     year = get_present_year()
+    monthly_data = MonthlySale.objects.filter(year=year)
 
-    orders = Order.objects.filter(
-        ordered_on__year=year,
-    ).values('ordered_on__month').annotate(total_sales=Sum("total_price"))
-
+    month_dict = dict.fromkeys(range(1, 12 + 1), 0)
     label = ['Jan', 'Feb', 'Mar', 'Apr', 'May',
              'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    data = [0 for i in range(len(label))]
 
-    for order in orders:
-        index = order.get('ordered_on__month') - 1
-        data[index] = order.get('total_sales')
-
+    for d in monthly_data:
+        key = d.month_year.month
+        month_dict[key] = d.total_sales
+    data = list(month_dict.values())
     if settings.DEBUG:
         logger.info(f'Time Execution: {perf_counter() - start_time}')
 
@@ -143,19 +136,26 @@ def get_yearly_data(*args, **kwargs):
     logger.info('Function Name: get_yearly_data')
 
     start_time = perf_counter()
+    obj = YearlySale.objects.all()
+    yrs = [x.year for x in obj]
 
-    orders = Order.objects.values('ordered_on__year').annotate(
-        total_sales=Sum('total_price'))
-    label = list(make_new_year_range())
-    data = [0 for i in range(len(label))]
+    year_min = min(yrs)
+    year_max = max(yrs)
 
-    for order in orders:
-        index = label.index(order.get('ordered_on__year'))
-        data[index] = order.get('total_sales')
+    if (year_max - year_min) < 10:
+        while (year_max - year_min) < 10:
+            year_max += 1
+
+    year_dict = dict.fromkeys(range(year_min, (year_max + 1)), 0)
+
+    for y in obj:
+        key = y.year
+        year_dict[key] = y.total_sales
 
     if settings.DEBUG:
         logger.info(f"Execution Time: {perf_counter() - start_time}")
-
+    data = list(year_dict.values())
+    label = list(year_dict.keys())
     return label, data
 
 
@@ -163,86 +163,70 @@ def get_daily_sales(*args, **kwargs):
     # Returns a dictionary containing the daily sales
     logger.info('Function Name: get_daily_sales')
     start_time = perf_counter()
-    day = get_present_date().day
+    date = get_present_date().date()
+    d_sales = 0
+    logger.debug(f'Day: {date}')
 
-    logger.debug(f'Day: {day}')
-
-    # Optional for testing
-    if kwargs.get('test'):
-        day = kwargs.get('day')
-
-    orders = Order.objects.filter(ordered_on__day=day)
-
-    total_sales = get_total_sales_by_orders(orders)
+    try:
+        obj = DailySale.objects.get(date=date)
+        d_sales = obj.total_sales
+    except Exception as e:
+        logger.error(f"get_daily_sales: {e}")
 
     if settings.DEBUG:
         logger.info(f"Execution Time: {perf_counter() - start_time}")
 
-    if total_sales == None:
-        return 0
-    return total_sales
+    return d_sales
 
 
 def get_weekly_sales(*args, **kwargs):
     logger.info('Function Name: get_weekly_sales')
     start_time = perf_counter()
-    week = get_present_date().weekday() + 1
-    start_week_day, end_week_day = get_week_date_range()
+    total_sales = 0
 
-    # Optional for testing
-    if kwargs.get('test'):
-        week = kwargs.get('week')
+    week_range = get_week_date_range(get_present_date().date())
+    week_sales = DailySale.objects.filter(
+        Q(date__range=(week_range[0], week_range[1])))
 
-    orders = Order.objects.filter(
-        ordered_on__range=(start_week_day, end_week_day))
-    total_sales = get_total_sales_by_orders(orders)
+    for sales in week_sales:
+        total_sales += sales.total_sales
 
     if settings.DEBUG:
         logger.info(f'Execution Time: {perf_counter() - start_time}')
 
-    if total_sales == None:
-        return 0
     return total_sales
 
 
 def get_monthly_sales(*args, **kwargs):
     logger.info('Function Name: get_monthly_sales')
     start_time = perf_counter()
-    month = get_present_month()
-
-    # Optional for testing
-    if kwargs.get('test'):
-        month = kwargs.get('month')
-        orders = Order.objects.filter(ordered_on__month=month)
-        total_sales = get_total_sales_by_orders(orders)
-        return total_sales
-
-    orders = Order.objects.filter(ordered_on__month=month)
-    total_sales = get_total_sales_by_orders(orders)
-
+    # DD always = 1 to make yyyy/mm format
+    special_date = month_year(get_present_date().date())
+    m_sale = 0
+    try:
+        obj = MonthlySale.objects.get(month_year=special_date)
+        m_sale = obj.total_sales
+    except Exception as e:
+        logger.error(f"get_monthly_sale: {e}")
     if settings.DEBUG:
         logger.info(f'Execution Time: {perf_counter() - start_time}')
 
-    if total_sales == None:
-        return 0
-    return total_sales
+    return m_sale
 
 
 def get_yearly_sales(*args, **kwargs):
     logger.info('Function Name: get_yearly_sales')
     start_time = perf_counter()
     year = get_present_year()
+    total_sales = 0
 
-    # Optional for testing
-    if kwargs.get('test'):
-        year = kwargs.get('year')
-
-    orders = Order.objects.filter(ordered_on__year=year)
-    total_sales = get_total_sales_by_orders(orders)
+    try:
+        x = YearlySale.objects.get(year=year)
+        total_sales = x.total_sales
+    except Exception as e:
+        logger.error(f'get_yearly_sales(): {e}')
 
     if settings.DEBUG:
         logger.info(f'Execution Time: {perf_counter() - start_time  }')
 
-    if total_sales == None:
-        return 0
     return total_sales
