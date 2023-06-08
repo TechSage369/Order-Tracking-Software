@@ -9,13 +9,7 @@
 :focus {
   outline: none;
   -webkit-box-shadow: none !important;
-  box-shadow: none !important;
-}
-
-/* Disabled Default Bootstrap shadow and outline */
-:focus {
-  outline: none;
-  box-shadow: none !important;
+          box-shadow: none !important;
 }
 
 .form-control:focus {
@@ -23,29 +17,29 @@
 }
 
 header {
-  min-height: 50px;
+  min-height: 20px;
+  max-height: 70px;
   background-color: #202428;
   color: #d9d9d9;
   padding: 0 10px;
 }
 
 .create-order {
-  min-height: calc(100vh - 50px);
-
+  height: calc(100vh - 80px);
   /* background-color: aquamarine; */
 }
 
-.create-order>.title {
-  margin-top: 2rem;
+.create-order > .title {
+  /* margin-top: 2rem; */
   font-size: 2em;
 }
 
 .recent-order {
   background-color: #414141;
-  min-height: calc(100vh - 50px);
+  height: calc(100vh - 80px);
 }
 
-.order-create-btn>button {
+.order-create-btn > button {
   width: 30rem;
 }
 
@@ -70,29 +64,29 @@ header {
   /* background-color: #fff; */
 }
 
-#search-results>ul>li {
+#search-results > ul > li {
   padding: 5px 20px;
   background-color: #fff;
 }
 
-#search-results>ul>li:nth-child(even) {
+#search-results > ul > li:nth-child(even) {
   background-color: rgb(210, 203, 203);
 }
 
-#search-results>ul>li:hover {
+#search-results > ul > li:hover {
   background-color: #414141;
   color: #fff;
   cursor: pointer;
 }
 
-#search-results>ul>li:active {
+#search-results > ul > li:active {
   background-color: #9e92d0;
 }
 
 /* Scroll Bar */
 ::-webkit-scrollbar {
   width: 3px;
-
+  height: 3px;
 }
 
 /* Track */
@@ -164,32 +158,6 @@ $cyan:    #0dcaf0 !default; */
   margin-bottom: auto;
 }
 
-
-/* Remove added item Button */
-.button-remove {
-  transition: 0.3s;
-}
-
-.button-remove:hover {
-  background-color: #373737;
-  cursor: pointer;
-  color: #fff;
-  font-size: 1.1em;
-}
-
-
-/* Remove added item Button */
-.button-remove {
-  transition: 0.3s;
-}
-
-.button-remove:hover {
-  background-color: #373737;
-  cursor: pointer;
-  color: #fff;
-  font-size: 1.1em;
-}
-
 /* Remove added item Button */
 .button-remove {
   -webkit-transition: 0.3s;
@@ -201,6 +169,4 @@ $cyan:    #0dcaf0 !default; */
   cursor: pointer;
   color: #fff;
   font-size: 1.1em;
-}
-
-/*# sourceMappingURL=index.css.map */
+}/*# sourceMappingURL=index.css.map */

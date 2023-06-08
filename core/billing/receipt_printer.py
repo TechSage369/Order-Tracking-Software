@@ -93,6 +93,7 @@ def print_receipt_windows(order, printer, fontsize, title_fontsize, weight):
         printer.text('Singamari, Darjeeling', font_config=title_font)
         printer.text('Ph No: 7001497783', font_config=title_font)
         printer.text(f"OrderId: {order.id}", font_config=title_font)
+        printer.text(f"Date: {order.get_order_date()}", font_config=title_font)
         printer.text(
             f'TableNumber: {order.table_number}', font_config=title_font)
         printer.text(f"{'-' * 32}")
@@ -102,14 +103,14 @@ def print_receipt_windows(order, printer, fontsize, title_fontsize, weight):
         # printing items
         for item in order.orderitem_set.all():
             if len(item.item.get_shortened_name()) < 10:
-                printer.text('{:>11} {:>8} {:>5} {:>10}\n'.format(
+                printer.text('{} {:>8} {:>5} {:>10}\n'.format(
                     item.item.get_shortened_name(),
                     item.quantity,
                     item.item.price,
                     item.get_price()
                 ), font_config=font)
             else:
-                printer.text('{:>11} {:>8} {:>5} {:>10}\n'.format(
+                printer.text('{} {:>8} {:>5} {:>10}\n'.format(
                     item.item.get_shortened_name(),
                     item.quantity, 
                     item.item.price, 
@@ -118,5 +119,5 @@ def print_receipt_windows(order, printer, fontsize, title_fontsize, weight):
 
         printer.text(f"{'-' * 32}\n", font_config=font)
         printer.text(
-            f"Total Price: Rs{order.get_total_price()}\n", font_config=title_font)
+            f"Total Amount: Rs{order.get_total_price()}\n", font_config=title_font)
         printer.text('Visit Again!\n', font_config=title_font)

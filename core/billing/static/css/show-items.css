@@ -1,0 +1,19 @@
+    .sh-alert {
+        display: flex;
+        background-color: #d4edda;
+        width: 50%;
+        height: 50px;
+        border-radius: 10px;
+        margin: 10px 0px;
+        padding: 10px;
+        justify-content: space-between;
+        align-items: center;
+        color: #155724;
+    }
+
+    .close {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }

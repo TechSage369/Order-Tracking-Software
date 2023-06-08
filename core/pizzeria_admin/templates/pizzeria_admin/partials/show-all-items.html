@@ -1,3 +1,14 @@
+{% load static %}
+<script src="{% static 'js/jquery-3.6.3.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/show-items.css' %}">
+{% if message %}
+    <div class="sh-alert sh-alert-success" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endif %}
 {% for item in items %}
     <div class="tableItems" id="items">
         <div class="tableData">{{ forloop.counter }}</div>
@@ -5,15 +16,24 @@
         <div class="tableData">{{ item.price }}</div>
         <div class="tableData">
             <button onclick="redirect('{% url 'pizzeria_admin:item_update_form_model' item.id %}')"
-                    class="button1">Update</button>
-            <button hx-post="{% url 'pizzeria_admin:delete_item_from_model' item.id %}"
-                    hx-trigger="click"
-                    hx-target="#items"
-                    hx-swap="innerHTML">Delete</button>
+                    class="">Update</button>
+            <a class="pz-btn"
+               href="{% url 'pizzeria_admin:delete_item_from_model' item.id %}">Delete</a>
         </div>
     </div>
 {% endfor %}
 <script>
+    window.setTimeout(function() {
+    $(".sh-alert").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove(); 
+    });}, 4000);   
+
+    $(".close").click(function(){
+        $(".sh-alert").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove(); 
+        });
+    })                                                                   
+
 function redirect(url){
     window.location.href = url;
 }

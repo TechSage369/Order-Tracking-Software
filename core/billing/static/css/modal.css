@@ -21,15 +21,12 @@
 
 .functional-buttons {
   margin-left: 0.2rem;
+}
 
-  .functional-buttons {
-    margin-left: 1rem;
-  }
+.functional-buttons-section {
+  margin-left: 15rem;
+}
 
-  .save-print:nth-child(even) {
-    margin-left: 20rem;
-  }
-
-  /* .save-print:nth-child(even){
+/* .save-print:nth-child(even){
     margin-left: 0rem;
-} */
+} *//*# sourceMappingURL=modal.css.map */

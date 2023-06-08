@@ -28,7 +28,7 @@
     /* border: solid #fff 1px; */
     display: flex;
     flex-wrap: nowrap;
-    width: calc(100% /  2 - 600px);
+    width: calc(100% / 2 - 600px);
     height: 40px;
     margin: 5px 40px;
 
@@ -49,7 +49,7 @@
     margin: 5px 40px;
 }
 
-.navCnt2 >a {
+.navCnt2>a {
     text-decoration: none;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: 200;
@@ -61,8 +61,9 @@
     color: var(--colour1);
 
 }
-.logout{
-    width:100px;
+
+.logout {
+    width: 100px;
     margin-bottom: 5px;
 }
 
@@ -173,22 +174,52 @@ body {
     font-size: medium;
     box-shadow: 0 0 5px var(--colour2);
 }
-.btn{
+
+.btn {
     padding: 10px 15px;
-    margin-left:38px;
+    margin-left: 38px;
 }
 
 button {
-    
+
     font-family: sans-serif;
     /* font-weight: bolder; */
     background-color: var(--colour5);
     border-style: none;
     border-radius: 5px;
-    margin-left:10px;
+    margin-left: 10px;
     color: var(--colour1);
 
 }
+
+.pz-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 3px;
+    font-family: sans-serif;
+    /* font-weight: bolder; */
+    background-color: var(--colour5);
+    border-style: none;
+    border-radius: 5px;
+    margin-left: 10px;
+    color: var(--colour1);
+    text-decoration: none;
+
+}
+
+.pz-btn:active {
+    box-shadow: 0 0 10px var(--colour2);
+
+}
+
+.pz-btn:hover {
+
+    background-color: var(--colour3);
+    color: var(--colour2);
+    transition: 0.2s;
+}
+
 
 button:active {
     box-shadow: 0 0 10px var(--colour2);
@@ -204,7 +235,7 @@ button:hover {
 }
 
 .titleCnt {
-    
+
     padding: 30px;
     display: flex;
     justify-content: space-between;
@@ -300,7 +331,7 @@ button:hover {
 /* Scroll Bar */
 ::-webkit-scrollbar {
     width: 5px;
-    margin-left:3px;
+    margin-left: 3px;
 
 }
 
@@ -320,9 +351,10 @@ button:hover {
 ::-webkit-scrollbar-thumb:hover {
     background: #fff;
 }
+
 /* Table container scrollable */
 
-.table-items-container{
+.table-items-container {
     max-height: 30rem;
     overflow-y: scroll;
 }

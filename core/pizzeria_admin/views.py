@@ -219,7 +219,7 @@ def delete_item_from_model(request, item_id):
         'form': form,
         'items': items,
     }
-    return render(request, 'pizzeria_admin/partials/show-all-items.html', context)
+    return render(request, 'pizzeria_admin/pizzeria-admin.html', context)
 
 
 @login_required
