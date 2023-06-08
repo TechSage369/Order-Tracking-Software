@@ -9,6 +9,7 @@ class Order(models.Model):
         ('Unpaid', 'Unpaid'),
         ('Paid', 'Paid'),
     ]
+    # ordered_on = models.DateTimeField(editable=True, default=datetime.datetime.today())
     ordered_on = models.DateTimeField(auto_now_add=True)
     paid_online = models.BooleanField(default=False)
     order_status = models.CharField(choices=ORDER_STATUS_CHOICE,
@@ -27,7 +28,8 @@ class Order(models.Model):
     total_price = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
-        self.total_price = sum([order_item.get_price() for order_item in self.orderitem_set.all()]
+        self.total_price = sum([order_item.get_price()
+                               for order_item in self.orderitem_set.all()])
         super().save(*args, **kwargs)
 
     def get_id(self):

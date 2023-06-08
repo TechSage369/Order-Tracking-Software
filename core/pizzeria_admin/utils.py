@@ -157,6 +157,13 @@ def get_week_date_range():
 
 # It is specifically build for making days to always 1
 # to make custom field for MM/YYYY
-def month_year(date) -> datetime.date:
+def month_year(date: datetime.date) -> datetime.date:
     new_date = datetime.date(date.year, date.month, 1)
     return new_date
+
+
+# creates a Dict where Key = DD val = 0 for a given Month
+def get_day_dict(year: int, month: int) -> dict:
+    _, num_days = calendar.monthrange(year, month)
+    day_dict = dict.fromkeys(range(1, num_days + 1), 0)
+    return day_dict
