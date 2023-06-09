@@ -1,4 +1,4 @@
-from django.db.models.signals import post_save, pre_delete
+from django.db.models.signals import post_save, pre_delete, post_delete
 from django.db.models import Q
 from django.dispatch import receiver
 from billing.models import Order
@@ -8,14 +8,14 @@ from . import utils
 
 
 @receiver(post_save, sender=Order)
-@receiver(pre_delete, sender=Order)
+@receiver(post_delete, sender=Order)
 def calculate_total(sender, instance, **kwargs):
     # print(f"_____Calculating Daily Sales____________{instance.ordered_on}")
     daily_sales(instance.ordered_on.date())
 
 
 def daily_sales(date):
-    orders = Order.objects.filter(ordered_on__date=date)
+    orders = Order.objects.filter(Q(ordered_on__date=date) & Q(is_paid=True))
     try:
         obj = DailySale.objects.get(date=date)
         obj.total_sales = sum(order.total_price for order in orders)

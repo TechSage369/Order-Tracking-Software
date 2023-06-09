@@ -1,9 +1,11 @@
 from billing.models import Order
 from tqdm import tqdm
 from pizzeria_admin.models import DailySale, YearlySale, MonthlySale
+from time import perf_counter
 
 
 def calculate():
+    start_time = perf_counter()
     print("____Removing All sales cache_____")
     DailySale.objects.all().delete()
     YearlySale.objects.all().delete()
@@ -20,3 +22,4 @@ def calculate():
         obj.save()
         progress_bar.update(1)
     progress_bar.close()
+    print(f"Completed: {perf_counter()-start_time}s")
