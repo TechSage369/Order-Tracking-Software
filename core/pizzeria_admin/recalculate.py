@@ -11,14 +11,15 @@ def calculate():
     YearlySale.objects.all().delete()
     MonthlySale.objects.all().delete()
 
-    data = Order.objects.all()
     print("Initializing all Order")
-
+    distinct_dates = Order.objects.values_list(
+        'ordered_on__date', flat=True).distinct()
     progress_bar = tqdm(total=len(
-        data), bar_format='{l_bar}{bar}| {n_fmt}/{total_fmt} [{percentage:3.0f}%]')
+        distinct_dates), bar_format='{l_bar}{bar}| {n_fmt}/{total_fmt} [{percentage:3.0f}%]')
 
-    for obj in data:
-        x = obj
+    for date in distinct_dates:
+        order_objects = Order.objects.filter(ordered_on__date=date)
+        obj = order_objects[0]
         obj.save()
         progress_bar.update(1)
     progress_bar.close()
