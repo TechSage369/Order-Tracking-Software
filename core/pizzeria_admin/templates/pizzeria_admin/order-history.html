@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block header %}
+{% endblock header %}
+{% block title %}
+Order History
+{% endblock title %}
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/order-history.css' %}">
+<div class="headContainer" id="top">
+    <div class="heading">Order History</div>
+    <div class="search">
+        <div class="bar">
+            <input type="text" id="order-history-search" placeholder="Search Orders"
+                hx-get="{% url 'pizzeria_admin:order_history_search' %}" hx-trigger="focus, keyup changed"
+                hx-target="section" name="order-query">
+        </div>
+    </div>
+    <button class="goback">
+        <a href="{% url 'pizzeria_admin:admin' %}">
+            <img src="{% static 'img/back.svg' %}" alt="back" width="30px">
+        </a>
+    </button>
+</div>
+{% include 'pizzeria_admin/partials/show-all-orders.html' %}
+<script>
+    var searchInput = document.getElementById('order-history-search');
+    searchInput.addEventListener('keyup', function (event) {
+        if (event.key === 'Escape') {
+            location.reload();
+        }
+    });
+</script>
+{% endblock content %}

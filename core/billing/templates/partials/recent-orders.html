@@ -1,41 +1,24 @@
-<div>Recent Orders</div>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/recent-orders-section.css' %}">
+<div class="recent-order-heading">Recent Orders</div>
 {% comment %} Searchbar {% endcomment %}
-<input type="search" name="" id="">
-<div class="recent-orders">
-  {% if orders %}
-    {% for order in orders %}
-      <div class="card">
-        <table>
-          <tr>
-            <th>Order</th>
-            <th>Table</th>
-            <th>Amount</th>
-            <th>Status</th>
-            <th>Function</th>
-          </tr>
-          <tr>
-            <td>{{ order.id }}</td>
-            <td>{{ order.table_number }}</td>
-            <td>{{ order.get_total_price }}</td>
-            <td>Resolve</td>
-            <td>
-              <button type="button"
-                      class="btn btn-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#myModal"
-                      hx-get="{% url 'billing:modal_view' order.id %}"
-                      hx-trigger="click"
-                      hx-target="#add-items-target"
-                      >View</button>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
-    <div>
-    {% endfor %}
-  {% else %}
-    <div class="recent-orders-empty">No recent Orders</div>
-  {% endif %}
-</ul>
-</div>
+<form action="#">
+  <input type="search"
+         class="form-control me-2 recent-order-search"
+         id="recent-order-search-bar"
+         aria-label="Search"
+         placeholder="Search Orders"
+         hx-post="{% url 'billing:search_orders' %}"
+         hx-trigger="focus, keyup changed"
+         hx-target="#search-order"
+         name="order-id">
+</form>
+{% include 'partials/order-search-results.html' %}
+<script>
+  var searchbar = document.getElementById('recent-order-search-bar');
+  searchbar.addEventListener('keyup', function(event) {
+    if (event.key === 'Escape') {
+      window.location.href = "{% url 'billing:index' %}";
+    }
+  });
+</script>

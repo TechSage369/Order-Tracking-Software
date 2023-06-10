@@ -4,8 +4,10 @@ A and B represent the hex code of the printer
 INTERFACE is the interface of the printer
 EP_IN and EP_OUT are the endpoints of the printer
 """
-from django.conf import settings
 import os
+
+from django.conf import settings
+
 print(settings.BASE_DIR)
 
 A = 0x0456

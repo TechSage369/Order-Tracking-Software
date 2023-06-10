@@ -1,0 +1,56 @@
+<div class="recent-orders-section" id="search-order">
+    {% if orders %}
+        {% for order in orders %}
+            <div class="card">
+                <table class="order-block">
+                    <tr>
+                        <th class="col-1">Order</th>
+                        <th class="col-1">Amount</th>
+                        <th class="col-3">Status</th>
+                        <th class="col-3">Table Number</th>
+                        <th class="col-3">Function</th>
+                    </tr>
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.get_total_price }}</td>
+                        <!-- Status Section -->
+                        <td>
+                            {% comment %} <select class="form-select form-control select-status" id="select-order-status" aria-label="Status" hx-post="{% url 'billing:update_order_status' order.id %}" hx-target="#search-order" name='order-status'>
+                                <option value="Unpaid">Unpaid</option>
+                                <option value="Paid">Paid</option>
+                            </select> {% endcomment %}
+                            {{ order.order_status }}
+                        </td>
+                        {% if order.is_paid %}
+                            <td>{{ order.table_number }}</td>
+                        {% else %}
+                            <td>
+                                <input type="number"
+                                       class="items-quanitity form-select form-control mx-3"
+                                       min="1"
+                                       max="7"
+                                       value="{{ order.table_number }}"
+                                       name="table-number"
+                                       placeholder="Table number"
+                                       hx-post="{% url 'billing:update_table_number' order.id %}"/>
+                            </td>
+                        {% endif %}
+                        <td>
+                            <a href="{% url 'billing:modal-view' order.id %}"
+                               class="custom-button btn btn-primary">View</a>
+                        </td>
+                    </tr>
+                </table>
+                {% comment %} </div> {% endcomment %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="recent-orders-empty">{{ message }}</div>
+        <div class="recent-orders-empty">No recent Orders</div>
+    {% endif %}
+</div>
+{% comment %} <script>
+    var orderObj = {{json_order_data|safe}};
+    var status = orderObj[0].fields.order_status;
+    $('#select-order-status').val(status);
+</script> {% endcomment %}

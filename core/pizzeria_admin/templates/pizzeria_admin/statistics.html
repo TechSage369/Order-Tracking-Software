@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Statistics</title>
+        <link rel="stylesheet" href="{% static 'css/statistics-page.css' %}">
+    </head>
+    <body>
+        <section class="content">
+            <div class="headContainer">
+                <h1 class="heading">Statistics</h1>
+                <form action="{% url 'pizzeria_admin:admin' %}">
+                    <button class="back">
+                        <img src="{% static 'img/back.svg' %}" alt="back" width="30px">
+                    </button>
+                </form>
+            </div>
+            <div class="cards">
+                <div class="sales">
+                    <h1>Daily Sales:</h1>
+                    <h2 class="dailySales">Rs. {{ daily_sales }}</h2>
+                </div>
+                <div class="sales">
+                    <h1>Weekly Sales:</h1>
+                    <h2 class="weeklySales">Rs. {{ weekly_sales }}</h2>
+                </div>
+                <div class="sales">
+                    <h1>Monthly Sales:</h1>
+                    <h2 class="monthlySales">Rs. {{ monthly_sales }}</h2>
+                </div>
+                <div class="sales">
+                    <h1>Yearly Sales:</h1>
+                    <h2 class="yearlySales">Rs. {{ yearly_sales }}</h2>
+                </div>
+            </div>
+            <div class="charts">
+                <div class="box">
+                    <div>
+                        <h1 class="title">Daily Sales</h1>
+                    </div>
+                    <canvas id="dailyChart"></canvas>
+                    <div>
+                        <h2 class="lable">Income in Rs.</h2>
+                    </div>
+                </div>
+                <div class="box">
+                    <div>
+                        <h1 class="title">Weekly Sales</h1>
+                    </div>
+                    <canvas id="weeklyChart"></canvas>
+                    <div>
+                        <h2 class="lable">Income(Rs. ) Per Week</h2>
+                    </div>
+                </div>
+                <div class="box" id="box-3">
+                    <div>
+                        <h1 class="title">Monthly Sales</h1>
+                    </div>
+                    <canvas id="monthlyChart"></canvas>
+                    <div>
+                        <h2 class="lable">Income(Rs. ) Per Month</h2>
+                    </div>
+                </div>
+                <div class="box">
+                    <div>
+                        <h1 class="title">Yearly Sales</h1>
+                    </div>
+                    <canvas id="yearlyChart"></canvas>
+                    <div>
+                        <h2 class="lable">Income(Rs. )Per Year</h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script src="{%static 'js/chart.min.js'%}"></script>
+    </body>
+</html>
+<script>
+    const dailyChart = document.getElementById('dailyChart');
+
+    new Chart(dailyChart, {
+    type: 'line',
+    data: {
+        labels: {{daily_label|safe}},
+        datasets: [{
+        width: '100%',
+        label: 'Day Income',
+        title: 'Daily',
+        // just malipulate the data nothing else....
+
+        data: {{daily_data|safe}},
+
+        borderWidth: 1,
+        customCanvasBackgroundColor: {
+            color: 'lightGreen',
+        }
+
+
+        }]
+    },
+    options: {
+        scales: {
+        y: {
+            beginAtZero: false
+        }
+        }
+    }
+    });
+    const weeklyChart = document.getElementById('weeklyChart');
+
+    new Chart(weeklyChart, {
+    type: 'bar',
+    data: {
+        labels: {{weekly_label|safe}},
+        datasets: [{
+        label: 'Weekly Income',
+        title: 'Daily',
+        data: {{weekly_data|safe}},
+        borderWidth: 1,
+        customCanvasBackgroundColor: {
+            color: 'lightGreen',
+        }
+
+
+        }]
+    },
+    options: {
+        scales: {
+        y: {
+            beginAtZero: false
+        }
+        }
+    }
+    });
+    const monthlyChart = document.getElementById('monthlyChart');
+
+    new Chart(monthlyChart, {
+    type: 'bar',
+    data: {
+        labels: {{monthly_label|safe}},
+        datasets: [{
+        label: 'Monthly Income',
+        title: 'Daily',
+        // just malipulate the data nothing else....
+        data: {{monthly_data|safe}},
+        borderWidth: 1,
+
+
+        }]
+    },
+    options: {
+        scales: {
+        y: {
+            beginAtZero: false
+        }
+        }
+    }
+    });
+    const yearlyChart = document.getElementById('yearlyChart');
+
+    new Chart(yearlyChart, {
+    type: 'line',
+    data: {
+        labels: {{yearly_label|safe}},
+        datasets: [{
+        label: 'Yearly Income',
+        title: 'Daily',
+        // just malipulate the data nothing else....
+        data: {{yearly_data|safe}},
+        borderWidth: 1,
+
+
+        }]
+    },
+    options: {
+        scales: {
+        y: {
+            beginAtZero: false
+        }
+        }
+    }
+    });
+
+
+</script>

@@ -1,0 +1,22 @@
+<header>
+    {% load static %}
+    {% comment %} <link rel="stylesheet" href="{% static 'css/add_update.css' %}"> {% endcomment %}
+    <nav>
+        <div class="navBar">
+            <div class="navCnt1">
+                <img src="/static/img/logo_index.jpeg" alt="">
+            </div>
+            <div class="navCnt2">
+                <a href="{% url 'pizzeria_admin:statistics' %}">
+                    <li class="hover">Statistics</li>
+                </a>
+                <a href="{% url 'pizzeria_admin:order_history' %}">
+                    <li class="hover">Order History</li>
+                </a>
+                <a href="{% url 'pizzeria_admin:logout' %}" id="logout">
+                    <button id="pz-logout" class="logOut">Log Out</button>
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>

@@ -34,23 +34,27 @@ body {
 .logInSec {
     display: flex;
     justify-content: center;
-    padding-top: 50px;
+    padding:20px;
+    margin: 10px 0px;
     padding-bottom: 100px;
 }
 
 .box {
-    position: absolute;
     width: 500px;
-    height: 22rem;
+    height: 23rem;
+    overflow: hidden;
     padding: 30px;
     display: flex;
     justify-content: center;
-    border: solid black 1px hidden;
+    flex-flow: column;
+    border: solid black px;
     background-color: #ffffff;
     border-radius: 20px;
     box-shadow: 0 0 10px black;
-    position: absolute;
 
+}
+.heading{
+    /* border: solid 1px black; */
 }
 
 /* box top text */
@@ -67,12 +71,13 @@ h2 {
 
 /* details */
 .container {
-    position: absolute;
-    padding: 20px;
+    
+    padding: 10px;
     justify-content: center;
     align-items: center;
     /* border: solid black 1px; */
-    margin-top: 50px;
+    /* margin-top: 50px; */
+    margin-bottom:-7px;
 }
 
 /* details */
@@ -107,7 +112,7 @@ h2 {
     padding-bottom: 10px;
     margin-left: 15px;
     border-radius: 5px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     border-style: none;
     border: 1px solid #000000
 }
@@ -134,3 +139,16 @@ h2 {
 }
 
 /* /button */
+.back{
+    display: flex;
+    justify-content: center;
+    /* border: solid black 1px; */
+}
+
+.Pz-btn{
+    margin-top: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+
+}

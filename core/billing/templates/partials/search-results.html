@@ -1,11 +1,12 @@
 <ul class="two-columns list-unstyled" id="search-results">
   {% for item in suggestions %}
-    <li hx-post="{% url 'billing:add_item' item.0.id %}"
+    <li class="search-result-li"
+        hx-get="{% url 'billing:add_item' item.id %}?orderid={{ order.id }}"
         hx-target="#add-items-target"
         hx-trigger="click">
-      <div class="list-items1">{{ item.0.id }}</div>
-      <div class="list-items2">{{ item.0.name }}</div>
-      <div class="list-items3">Rs.{{ item.0.price }}</div>
+      <div class="list-items1">{{ item.id }}</div>
+      <div class="list-items2">{{ item.name }}</div>
+      <div class="list-items3">Rs.{{ item.price }}</div>
     </li>
   {% endfor %}
 </ul>
@@ -18,6 +19,6 @@
     text-align: left;
   }
   .list-items2{
-    width: 45rem;
+    width: 38rem;
   }
 </style>

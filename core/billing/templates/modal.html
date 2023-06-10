@@ -1,0 +1,187 @@
+{% extends "index.html" %}
+{% block content %}
+    {% load static %}
+    {% load mathfilters %}
+    <link rel="stylesheet" href="{% static 'css/modal.css' %}">
+    <div class="container-fluid container-section-modal">
+        {% if error %}<div class="alert alert-info" id="hideDiv">{{ error }}</div>{% endif %}
+        <div class="row">
+            <div class="col-md">
+                <a href="{% url 'billing:index' %}">
+                    <img src="{% static 'img/back.svg' %}" alt="Back" width="30px">
+                </a>
+                <hr>
+                <div class="modal-heading">
+                    Order No: {{ order.id }} <span style="padding:0px 30px;"></span>TableNumber: {{ order.table_number }} <span style="padding:0px 30px;"></span> Date: {{ order.get_order_date }}
+                </div>
+                <hr>
+                <div class="table-responsive" style="max-height: 23rem;">
+                    <table class="table table-striped items-list-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">SN.</th>
+                                <th>Item Name</th>
+                                <th>Price</th>
+                                <th>Qnt</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        {% for orderitem in order.orderitem_set.all %}
+                            <tbody>
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>{{ orderitem.item.name }}</td>
+                                    <td>Rs. {{ orderitem.item.price }}</td>
+                                    <td>{{ orderitem.quantity }}</td>
+                                    <td>Rs. {{ orderitem.item.price|mul:orderitem.quantity }}</td>
+                                </tr>
+                            </tbody>
+                        {% endfor %}
+                    </table>
+                    <table class="table table-striped">
+                        <tbody>
+                            {% if not order.is_paid %}
+                            <tr>
+                                <th colspan=2>
+                                    <a href="{% url 'billing:index' %}?orderid={{ order.id }}"
+                                       class="btn btn-primary">Edit</a>
+                                </th>
+                            </tr>
+
+                            {% endif %}
+                            <tr>
+                                <th>Total</th>
+                                <th>Rs. {{ order.get_total_price }}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+    
+                </div>
+                <table class="table table-striped">
+                    <tbody>
+                        {% if order.is_paid %}
+                            <div class="mx-3">
+                                Payment Method: <b>{{ order.payment_method }}</b>
+                            </div>
+                        {% else %}
+                            <div>Payment Method</div>
+                            <div class="payment-method-section">
+                                <div class="payment-method-container">
+                                    <input class="form-check-input"
+                                           type="radio"
+                                           name="payment-method"
+                                           id="payment-cash"
+                                           value="Cash"
+                                           hx-post="{% url 'billing:update_payment_method' order.id %}"
+                                           hx-trigger="click"
+                                           hx-target="body">
+                                    <label class="form-check-label" for="payment-cash">Cash</label>
+                                </div>
+                                <div class="payment-method-container">
+                                    <input class="form-check-input"
+                                           type="radio"
+                                           name="payment-method"
+                                           id="payment-online"
+                                           value="Online"
+                                           hx-post="{% url 'billing:update_payment_method' order.id %}"
+                                           hx-trigger="click"
+                                           hx-target="body">
+                                    <label class="form-check-label" for="payment-online">Online</label>
+                                </div>
+                                <div class="functional-buttons-section mx-5">
+                                    <a href="{% url 'billing:delete_order' order.id %}"
+                                       style="color:white"
+                                       class="btn btn-danger functional-buttons">Delete</a>
+                                    <a href="{% url 'billing:modal_save' %}?orderid={{ order.id }}"
+                                       style="color:white"
+                                       class="btn btn-primary functional-buttons"
+                                       value="Paid">Paid</a>
+                                    <input type="button"
+                                           id="print-button"
+                                           class="btn btn-success functional-buttons"
+                                           value="Print"
+                                           disabled="true"
+                                           hx-post="{% url 'billing:print_receipt' order.id %}"
+                                           hx-trigger="click">
+                                </div>
+                            {% endif %}
+                        </div>
+                        <br>
+                    </div>
+                    <script>
+        //Print Button remain disabled when Unpaid
+        $('input:radio[name="payment-method"]').change(function(){
+        if($(this).is(':checked') && $(this).val() != 'unpaid'){
+        $('#print-button').prop("disabled",false);
+        }
+        else{
+        $('#print-button').prop("disabled",true);
+        }
+        });
+        // add checked to the selected option in radio button
+        var order = {{ json_order|safe }};
+        console.log(order)
+        var status = order[0].fields.payment_method;
+        if (status === 'Cash'){
+        $('#payment-cash').prop('checked', true);
+        $('#print-button').prop('disabled', false);
+        }
+        if (status === 'Online'){
+        $('#payment-online').prop('checked', true);
+        $('#print-button').prop('disabled', false);
+        }
+                    </script>
+                    <script>
+        //Print Button remain disabled when Unpaid
+        $('input:radio[name="payment-method"]').change(function(){
+        if($(this).is(':checked') && $(this).val() != 'unpaid'){
+           $('#print-button').prop("disabled",false);
+        }
+        else{
+           $('#print-button').prop("disabled",true);
+        }
+        });
+        // add checked to the selected option in radio button
+        var order = {{ json_order|safe }};
+        console.log(order)
+        var status = order[0].fields.payment_method;
+        if (status === 'Cash'){
+        $('#payment-cash').prop('checked', true);
+        $('#print-button').prop('disabled', false);
+        }
+        if (status === 'Online'){
+        $('#payment-online').prop('checked', true);
+        $('#print-button').prop('disabled', false);
+        }
+                    </script>
+                    <script>
+        //Print Button remain disabled when Unpaid
+        $('input:radio[name="payment-method"]').change(function(){
+        if($(this).is(':checked') && $(this).val() != 'unpaid'){
+           $('#print-button').prop("disabled",false);
+        }
+        else{
+           $('#print-button').prop("disabled",true);
+        }
+       });
+       
+       // add checked to the selected option in radio button
+       var order = {{json_order|safe}};
+       var status = order[0].fields.payment_method;
+       if (status === 'Cash'){
+        $('#payment-cash').prop('checked', true);
+        $('#print-button').prop('disabled', false);
+       }
+       if (status === 'Online'){
+        $('#payment-online').prop('checked', true);
+        $('#print-button').prop('disabled', false);
+       }
+                    </script>
+                    <script>
+            function hide()
+            {
+            document.getElementById("hideDiv").style.visibility="hidden";
+            }
+            setTimeout("hide()",2000);
+                    </script>
+                {% endblock content %}

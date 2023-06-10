@@ -1,4 +1,4 @@
-from .models import Order, Item, OrderItem
+from .models import Item, Order, OrderItem
 
 ITEMS = [
     # Starter Section
@@ -8,7 +8,7 @@ ITEMS = [
     ('Pork Septa', 170),
     ('Chicken 65', 170),
     ('Chicken Schzwan', 160),
-    ('Chiken Lollypop', 180),
+    ('Chicken Lollypop', 180),
 
     # Fried Rice Section
     ('Chicken Fried Rice', 120),
@@ -155,3 +155,7 @@ def build_items(items: list = ITEMS):
             price=item[1]
         )
     print('Items created successfully.')
+
+
+if __name__ == "__main__":
+    build_items()

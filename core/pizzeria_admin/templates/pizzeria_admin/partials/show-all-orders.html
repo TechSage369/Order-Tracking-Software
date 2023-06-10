@@ -1,0 +1,28 @@
+<section>
+    <div class="tableContainer">
+        <div class="tableHead">
+            <lable class="tableTitle">Order Number</lable>
+            <lable class="tableTitle">Time Stamp</lable>
+            <lable class="tableTitle">Payment Mode</lable>
+            <lable class="tableTitle">Total Price</lable>
+        </div>
+        <div class="data">
+            {% for order in orders %}
+                <a href="{% url 'pizzeria_admin:order_detail' order.id %}">
+                    <div class="dataSet">
+                        <div class="dataList">{{ order.id }}</div>
+                        <div class="dataList">{{ order.get_order_date }}</div>
+                        <div class="dataList">{{ order.get_payment_mode }}</div>
+                        <div class="dataList">Rs.{{ order.total_price }}</div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+        <div class="optionBtn">
+            <button class="option">View more</button>
+            <a href="#top" target="parent">
+                <button class="option">Back to top</button>
+            </a>
+        </div>
+    </div>
+</section>

@@ -1,27 +1,33 @@
-{% extends 'base.html' %} 
-
-{% block content %} 
-{% include 'partials/header.html'%}
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-8 create-order">
-      {% include 'partials/order-create.html' %}
-      <div>Items:</div>
-      {% include 'partials/show-added-items.html' %}
-      <div class="d-flex justify-content-center order-create-btn">
-        <a
-          class="btn"
-          style="background-color: #1d1d1d; color: #fefefe;"
-          href="{% url 'billing:create_order' new_order_id %}"
-          >Create</a>
+{% extends 'base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-7 create-order">
+        {% include 'partials/order-create.html' %}
+        <div class="my-4">
+          <h3>Items</h3>
+        </div>
+        {% include 'partials/show-added-items.html' %}
+        <div class="d-flex justify-content-center order-create-btn">
+          {% if order.is_update %}
+            <a href="{% url 'billing:update_order' order.id %}"
+               class="btn"
+               style="background-color: #1d1d1d;
+                      color: #fefefe">Update</a>
+          {% else %}
+            <a href="{% url 'billing:create_order' %}?order_id={{ order.id }}"
+              type="submit"
+              class="btn"
+              id="create-button"
+              style="background-color: #1d1d1d; color: #fefefe">Create</a>
+          {% endif %}
+        </div>
       </div>
-    </div>
-    <div class="col-md-4 recent-order">
-      {% include 'partials/recent-orders.html' %}
+      <div class="col-md-5 recent-order">{% include 'partials/recent-orders.html' %}</div>
     </div>
   </div>
-  {% include 'partials/modal-recent-order.html' %}
-</div>
-
+  <script src="{% static 'js/functions.js' %}"></script>
+  {% include "partials/footer.html" %}
 {% endblock content %}
-

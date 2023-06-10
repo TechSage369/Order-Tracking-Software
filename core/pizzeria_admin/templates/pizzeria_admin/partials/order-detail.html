@@ -1,0 +1,59 @@
+{% include "base.html" %}
+{% block content %}
+    {% load static %}
+    {% load mathfilters %}
+    <link rel="stylesheet" href="{% static 'css/modal.css' %}">
+    <div class="container-fluid container-section-modal">
+        <div class="row">
+            <div class="col-md">
+                <a href="{% url 'pizzeria_admin:order_history' %}">
+                    <img src="{% static 'img/back.svg' %}" alt="Back" width="30px">
+                </a>
+                <div class="modal-heading">Order No: {{ order.id }}</div>
+                <hr>
+                <div>Items</div>
+                <hr>
+                <div class="table-responsive" style="max-height: 23rem;">
+                    <table class="table table-striped items-list-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">SN.</th>
+                                <th>Item Name</th>
+                                <th>Price</th>
+                                <th>Qnt</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        {% for orderitem in order.orderitem_set.all %}
+                            <tbody>
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>{{ orderitem.item.name }}</td>
+                                    <td>Rs. {{ orderitem.item.price }}</td>
+                                    <td>{{ orderitem.quantity }}</td>
+                                    <td>Rs. {{ orderitem.item.price|mul:orderitem.quantity }}</td>
+                                </tr>
+                            </tbody>
+                        {% endfor %}
+                    </table>
+                </div>
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th>Total</th>
+                            <th>Rs. {{ order.get_total_price }}</th>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="mx-3">Payment Method: <b>{{ order.payment_method }}</b></div>
+                <input type="button"
+                id="print-button"
+                class="btn btn-secondary save-print my-4"
+                value="Print"
+                hx-post="{% url 'billing:print_receipt' order.id %}"
+                hx-trigger="click">
+
+                </div>
+            </div>
+        </div>
+    {% endblock content %}

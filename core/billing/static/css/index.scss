@@ -1,0 +1,180 @@
+* {
+    margin: 0;
+    padding: 0;
+    /* font-family: 'Julee', sans-serif; */
+    letter-spacing: 2px;
+
+
+}
+
+/* Disabled Default Bootstrap shadow and outline */
+:focus {
+    outline: none;
+    box-shadow: none !important;
+}
+
+.form-control:focus {
+    border: 2px solid #9e92d0;
+}
+
+header {
+    min-height: 20px;
+    max-height: 70px;
+    background-color: #202428;
+    color: #d9d9d9;
+    padding: 0 10px;
+}
+
+.create-order {
+    height: calc(100vh - 80px);
+
+    /* background-color: aquamarine; */
+}
+
+.create-order>.title {
+    /* margin-top: 2rem; */
+    font-size: 2em;
+}
+
+.recent-order {
+    background-color: #414141;
+    height: calc(100vh - 80px);
+}
+
+.order-create-btn>button {
+    width: 30rem;
+}
+
+
+.list-menu {
+    /* background-color: #a09494; */
+    background: transparent;
+    /* border: 1px solid black;  */
+    position: absolute;
+    width: inherit;
+    max-height: 32rem;
+    overflow: auto;
+
+}
+
+#search-results {
+    display: relative;
+    /* display: table-cell; */
+    /* column-count: 1; */
+    width: inherit;
+    /* padding-left: 1.5rem; */
+    padding-right: .9rem;
+    ;
+    /* border: 1px solid black; */
+    /* background-color: #fff; */
+
+}
+
+#search-results>ul>li {
+    padding: 5px 20px;
+    background-color: #fff;
+}
+
+#search-results>ul>li:nth-child(even) {
+    background-color: rgb(210, 203, 203);
+}
+
+#search-results>ul>li:hover {
+    background-color: #414141;
+    color: #fff;
+    cursor: pointer;
+}
+
+#search-results>ul>li:active {
+    background-color: #9e92d0;
+}
+
+/* Scroll Bar */
+::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background-color: #f2efef;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #fff;
+}
+
+/* 
+// scss-docs-start gray-color-variables
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+// scss-docs-end gray-color-variables
+
+// fusv-disable
+// scss-docs-start gray-colors-map
+$grays: (
+  "100": $gray-100,
+  "200": $gray-200,
+  "300": $gray-300,
+  "400": $gray-400,
+  "500": $gray-500,
+  "600": $gray-600,
+  "700": $gray-700,
+  "800": $gray-800,
+  "900": $gray-900
+) !default;
+// scss-docs-end gray-colors-map
+// fusv-enable
+
+// scss-docs-start color-variables
+$blue:    #0d6efd !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #d63384 !default;
+$red:     #dc3545 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #ffc107 !default;
+$green:   #198754 !default;
+$teal:    #20c997 !default;
+$cyan:    #0dcaf0 !default; */
+
+/* For Empty Recent Orders */
+.recent-orders-empty {
+    color: white !important;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 2.5rem;
+    margin-top: 20rem;
+    margin-bottom: auto;
+}
+
+
+/* Remove added item Button */
+.button-remove {
+    transition: 0.3s;
+}
+
+.button-remove:hover {
+    background-color: #373737;
+    cursor: pointer;
+    color: #fff;
+    font-size: 1.1em;
+}
