@@ -1,5 +1,6 @@
 import re
-
+import datetime
+from typing import Iterable, Optional
 from django.db import models
 
 
@@ -8,6 +9,7 @@ class Order(models.Model):
         ('Unpaid', 'Unpaid'),
         ('Paid', 'Paid'),
     ]
+    # ordered_on = models.DateTimeField(editable=True, default=datetime.datetime.today())
     ordered_on = models.DateTimeField(auto_now_add=True)
     paid_online = models.BooleanField(default=False)
     order_status = models.CharField(choices=ORDER_STATUS_CHOICE,
@@ -61,7 +63,7 @@ class Order(models.Model):
         return False if len(self.items.all()) <= 0 else True
 
     def __str__(self):
-        return f"OrderId: {self.pk} Table: {self.table_number}"
+        return f"OrderId: {self.pk} Table: {self.table_number} Total: {self.total_price}"
 
 
 class Item(models.Model):

@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 import datetime
 import calendar
 import random
@@ -148,8 +149,39 @@ def make_new_year_range():
     return range(min_year, max_year+1)
 
 
-def get_week_date_range():
-    current_date = get_present_date()
+# Startin week day = Monday
+def get_week_date_range(current_date):
     week = current_date.weekday()
     start_date = current_date - datetime.timedelta(days=week)
     return start_date, current_date
+
+
+# It is specifically build for making days to always 1
+# to make custom field for MM/YYYY
+def month_year(date: datetime.date) -> datetime.date:
+    new_date = datetime.date(date.year, date.month, 1)
+    return new_date
+
+
+# creates a Dict where Key = DD val = 0 for a given Month
+def get_day_dict(year: int, month: int) -> dict:
+    _, num_days = calendar.monthrange(year, month)
+    day_dict = dict.fromkeys(range(1, num_days + 1), 0)
+    return day_dict
+
+
+def generate_date_dictionary(start_date, end_date) -> list[datetime.date]:
+    date_dict = {}
+    current_date = start_date
+    while current_date <= end_date:
+        date_dict[current_date] = 0
+        current_date += datetime.timedelta(days=1)
+
+    return date_dict
+
+# Example usage
+# start_date = date(2023, 1, 1)
+# end_date = date(2023, 12, 31)
+
+# date_dictionary = generate_date_dictionary(start_date, end_date)
+# print(date_dictionary)
